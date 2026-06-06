@@ -12,9 +12,10 @@ app = Dash(__name__)
 app.layout = html.Div([
 
     html.H1(
-        "Soul Foods Pink Morsel Dashboard",
-        className="title"
-    ),
+    "Soul Foods Pink Morsel Dashboard",
+    id="header",
+    className="title"
+),
 
     html.Div([
 
@@ -24,28 +25,30 @@ app.layout = html.Div([
         ),
 
         dcc.RadioItems(
-            id="region-filter",
-            options=[
-                {"label": "All", "value": "all"},
-                {"label": "North", "value": "north"},
-                {"label": "South", "value": "south"},
-                {"label": "East", "value": "east"},
-                {"label": "West", "value": "west"}
-            ],
-            value="all",
-            inline=True
-        )
+    id="region-picker",
+    options=[
+        {"label": "All", "value": "all"},
+        {"label": "North", "value": "north"},
+        {"label": "South", "value": "south"},
+        {"label": "East", "value": "east"},
+        {"label": "West", "value": "west"}
+    ],
+    value="all",
+    inline=True
+)
 
     ], className="radio-container"),
 
-    dcc.Graph(id="sales-chart")
+    dcc.Graph(
+    id="sales-chart"
+)
 
 ])
 
 
 @app.callback(
     Output("sales-chart", "figure"),
-    Input("region-filter", "value")
+    Input("region-picker", "value")
 )
 def update_chart(selected_region):
 
